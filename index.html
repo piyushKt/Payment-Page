@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pament Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css" integrity="sha384-xeJqLiuOvjUBq3iGOjvSQSIlwrpqjSHXpduPd6rQpuiM3f5/ijby8pCsnbu5S81n" crossorigin="anonymous">    <style>
+        #pament-container{
+            width: 800px;
+            height: 600px;
+           
+            background-color: rgb(128, 125, 125);
+        }
+    </style>
+    <script>
+          var cardDetails={
+                cardNumber:4646000100022131,
+                cvvNumber:175,
+                expiryMonth:01,
+                expiryYear:2027,
+                cardHolderName:"Piyush Tiwari"
+
+            }
+        function bodyLoad(){
+            verifyDetails();
+        }
+        function verifyDetails(){
+          
+            var monthSelect=document.getElementById("month");
+            var yearSelect=document.getElementById("year");
+  
+            var months=["MM","01","02","03","04","05","06","07","08","09","10","11","12"];
+            var years=["YYYY","2022","2023","2024","2025","2026","2027","2028","2029","2030","2031","2032","2033","2034","2035","2036","2037","2038","2039","2040"];
+            for(var month of months){
+           
+                var monthOption=document.createElement("option");
+                monthOption.text=month;
+               
+                monthOption.value=month;
+                monthSelect.appendChild(monthOption);
+
+                
+
+            }
+            for(var year of years){
+                var yearOption=document.createElement("option");
+                yearOption.text=year;
+                yearOption.value=year;
+                yearSelect.appendChild(yearOption);
+            }
+            
+        }
+        function verifyCardNumber(){
+           
+            var verifyCard=parseInt(document.getElementById("txtCardNumber").value);
+          
+            if(verifyCard===cardDetails.cardNumber){
+                
+                document.getElementById("txtCvv").disabled=false;
+
+            }
+        }
+        function verifyCvv(){
+           var txtCvv= document.getElementById("txtCvv").value;
+           if(txtCvv==cardDetails.cvvNumber){
+            document.getElementById("month").disabled=false;
+            document.getElementById("year").disabled=false;
+           }
+        }
+        function onMonthChange(){
+           var month= document.getElementById("month").value;
+           return month;
+        }
+        function onYearChange(){
+            var year=document.getElementById("year").value;
+            var month=onMonthChange();
+            console.log(month+" "+year)
+            if(month==01 && year==2027){
+                document.getElementById("paymentSubmit").disabled=false;
+            }
+
+        }
+        function displayName(){
+           
+            document.getElementById("cardHolderName").innerText=cardDetails.cardHolderName;
+var cardHolderNameContainer=document.getElementById("cardHolderNameContainer");
+cardHolderNameContainer.style.display=(cardHolderNameContainer.style.display==="none"?"block":"none")
+var button=document.getElementById("paymentSubmit");
+button.innerHTML=(button.innerHTML==="Submit"?"Hide":"Submit");
+        }
+    </script>
+</head>
+<body class="container-fluid" onload="bodyLoad()">
+   <div class="d-flex justify-content-center">
+    <div id="pament-container">
+        
+        <p class="display-4 text-center text-light">Card Details</p>
+<div class=" d-flex justify-content-center align-items-center">
+    <div class="bg-light d-flex justify-content-center align-items-center" style="height: 500px; width: 600px;">
+<div style="height: 400px; width: 500px;">
+<div>
+    <label for="txtCardNumber" class="form-label">Card Number:</label>
+    <input type="text" id="txtCardNumber" onkeyup="verifyCardNumber()" placeholder="XXXX-XXXX-XXXX-XXXX" class="form-control" style="width: 300px;">
+</div>
+<div class="mt-3">
+    <label for="txtCvv" class="form-label">Enter CVV:<span>&nbsp;3 degit number</span></label>
+    <input type="text" id="txtCvv" onkeyup="verifyCvv()" placeholder="CVV" class="form-control" disabled style="width:100px">
+
+</div>
+<div class="mt-3 " >
+    <label for="txtExpDate" class="form-label">Exiry Date:</label>
+<div class="input-group" style="width: 200px; height:50px">
+    <select class="form-select" id="month" disabled onchange="onMonthChange()">
+    
+       
+    </select>
+    <select class="form-select" id="year" disabled onchange="onYearChange()">
+       
+    </select>  
+</div>
+
+
+</div>
+<div id="cardHolderNameContainer" style="display:none">
+    <p>Card Holder Name:</p>
+    <span class="fw-semibold" id="cardHolderName"></span>
+</div>
+<div class="mt-5 d-flex justify-content-center">
+    <button id="paymentSubmit" class="btn btn-primary text-center"  onclick="displayName()" disabled>Submit</button>
+</div>
+</div>
+    </div>
+</div>
+   </div>
+    </div>
+<br>
+    <p class="fw-bold">value to check on:<span class="ms-5"> cardNumber->4646000100022131<span class="ms-3">cvv->175</span><span class="ms-3">MM->01</span><span class="ms-3"></span>YYYY->2027</span></span></p>
+    
+       
+    
+    <script
+    src="https://code.jquery.com/jquery-3.6.1.js"
+    integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+    crossorigin="anonymous"></script>
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script> 
+</body>
+</html>
